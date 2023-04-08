@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talent Block</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="shortcut icon" href="images/TB.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class=" min-h-screen bg-gradient-to-b from-purple-200 to-purple-500">
+      <header class="text-gray-600 body-font">
+        <div
+          class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+        >
+        <style>
+          .title-font:hover {
+            color: #000000;
+             
+            cursor: pointer;
+            transform: scale(1.1);
+            transition: transform 0.2s ease-in-out;
+          }
+        </style>
+        
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <span class="ml-3 text-x1" onclick="myfunction()">TalentBlock</span>
+        </a>
+        </button>
+                 
+        <script>
+          function myfunction() {
+            location.href = "index.html";
+          }
+        </script>
+        
+
+          <nav
+            class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center"
+          >
+            <a class="mr-5 hover:text-gray-900"></a>
+            <a class="mr-5 hover:text-gray-900"></a>
+            <a class="mr-5 hover:text-gray-900"></a>
+            <a class="mr-5 hover:text-gray-900"></a>
+          </nav>
+
+
+
+
+
+
+          <button class="py-4 px-10 rounded-full bg-white shadow-sm uppercase tracking-wide text-sm transition-all duration-500 ease-in hover:bg-purple-500 hover:text-white hover:tracking-wider active:bg-purple-500 active:text-white active:shadow-none transform active:translate-y-1" id="connect-button">Connect Wallet
+                  <script>
+                  const button = document.getElementById("connect-button");
+
+                  const updateButton = () => {
+                    const account = localStorage.getItem("walletAddress");
+
+                    if (!account) {
+                      button.textContent = "Connect wallet";
+                      return;
+                    }
+
+                    ethereum
+                      .request({ method: "eth_accounts" })
+                      .then((accounts) => {
+                        if (accounts.length === 0) {
+                          button.textContent = "Connect wallet";
+                          localStorage.removeItem("walletAddress");
+                        } else {
+                          const shortenedAccount = `${accounts[0].slice(
+                            0,
+                            4
+                          )}...${accounts[0].slice(-4)}`;
+                          button.textContent = shortenedAccount;
+                          localStorage.setItem("walletAddress", accounts[0]);
+                        }
+                      });
+                  };
+
+                  button.addEventListener("click", () => {
+                    const account = localStorage.getItem("walletAddress");
+
+                    if (!account) {
+                      ethereum
+                        .request({ method: "eth_requestAccounts" })
+                        .then((accounts) => {
+                          const shortenedAccount = `${accounts[0].slice(
+                            0,
+                            4
+                          )}...${accounts[0].slice(-4)}`;
+                          button.textContent = shortenedAccount;
+                          localStorage.setItem("walletAddress", accounts[0]);
+                        });
+                    } else {
+                      ethereum
+                        .request({ method: "eth_accounts" })
+                        .then((accounts) => {
+                          if (accounts.length === 0) {
+                            button.textContent = "Connect wallet";
+                            localStorage.removeItem("walletAddress");
+                          } else {
+                            const shortenedAccount = `${accounts[0].slice(
+                              0,
+                              4
+                            )}...${accounts[0].slice(-4)}`;
+                            button.textContent = shortenedAccount;
+                          }
+                        });
+                    }
+                  });
+
+                  updateButton();
+                  ethereum.on("accountsChanged", updateButton);
+                </script>
+            
+          </button>
+        </div>
+      </header>
+    </button>
+    
+    <section class="py-10 sm:py-16 lg:py-24">
+      <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+          <div>
+            <h1 class="text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
+              Gig Economy Supercharged, with
+              <div class="relative inline-flex">
+                <span class="absolute inset-x-0 bottom-0 border-b-[30px] border-[#4ADE80]"></span>
+                <h1 class="relative text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
+                  WEB3
+                </h1>
+              </div>
+            </h1>
+            <button class="flex items-center justify-center gap-2 font-medium text-xs uppercase tracking-wider text-blueGray-500 bg-blueGray-200 border-2 border-blueGray-400 rounded-full py-4 px-6 transform transition duration-200 shadow-md hover:text-blue-700 hover:bg-blue-100 hover:shadow-lg active:shadow-none mt-9" onclick="myfunction()">
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> 
+              Explore me
+            </button>
+            <script>
+              function myfunction() {
+                location.href = "dashboard.html";
+              }
+            </script>
+
+            
+          </div>
+
+          <div>
+            <img class="w-full" src="images/hero-img.png" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </body>
+</html>
