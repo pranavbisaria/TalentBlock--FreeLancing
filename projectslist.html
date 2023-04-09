@@ -50,7 +50,7 @@
   <script>
     var mainContainer = document.getElementById("mainContainer");
 
-    fetch('FreeLancer.json')
+    fetch('https://pranavbisaria.github.io/TalentBlock--FreeLancing/FreeLancer.json')
       .then(response => response.json())
       .then(ABI => {
         var web3 = new Web3("HTTP://127.0.0.1:8545");
