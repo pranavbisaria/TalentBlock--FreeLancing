@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5
+        }
+
+        .centered_div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+
+        .modal {
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            height: -webkit-fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+            background: #FFFFFF;
+            -webkit-box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 26px;
+            max-width: 450px;
+        }
+
+        .form {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .payment--options {
+            width: calc(100% - 40px);
+            display: grid;
+            grid-template-columns: 33% 34% 33%;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .payment--options button {
+            height: 55px;
+            background: #F2F2F2;
+            border-radius: 11px;
+            padding: 0;
+            border: 0;
+            outline: none;
+        }
+
+        .payment--options button svg {
+            height: 18px;
+        }
+
+        .payment--options button:last-child svg {
+            height: 22px;
+        }
+
+        .separator {
+            width: calc(100% - 20px);
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 10px;
+            color: #8B8E98;
+            margin: 0 10px;
+        }
+
+        .separator>p {
+            word-break: keep-all;
+            display: block;
+            text-align: center;
+            font-weight: 600;
+            font-size: 11px;
+            margin: auto;
+        }
+
+        .separator .line {
+            display: inline-block;
+            width: 100%;
+            height: 1px;
+            border: 0;
+            background-color: #e8e8e8;
+            margin: auto;
+        }
+
+        .credit-card-info--form {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input_container {
+            width: 100%;
+            height: -webkit-fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 4fr 2fr;
+            gap: 15px;
+        }
+
+        .split input {
+            width: 100%;
+        }
+
+        .input_label {
+            font-size: 10px;
+            color: #8B8E98;
+            font-weight: 600;
+        }
+
+        .input_field {
+            width: auto;
+            height: 40px;
+            padding: 0 0 0 16px;
+            border-radius: 9px;
+            outline: none;
+            background-color: #F2F2F2;
+            border: 1px solid #e5e5e500;
+            -webkit-transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+        }
+
+        .input_field:focus {
+            border: 1px solid transparent;
+            -webkit-box-shadow: 0px 0px 0px 2px #242424;
+            box-shadow: 0px 0px 0px 2px #242424;
+            background-color: transparent;
+        }
+
+        .purchase--btn {
+            height: 55px;
+            background: #F2F2F2;
+            border-radius: 11px;
+            border: 0;
+            outline: none;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            background: -webkit-gradient(linear, left top, left bottom, from(#363636), color-stop(50%, #1B1B1B), to(#000000));
+            background: linear-gradient(180deg, #363636 0%, #1B1B1B 50%, #000000 100%);
+            -webkit-box-shadow: 0px 0px 0px 0px #FFFFFF, 0px 0px 0px 0px #000000;
+            box-shadow: 0px 0px 0px 0px #FFFFFF, 0px 0px 0px 0px #000000;
+            -webkit-transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+            transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+        }
+
+        .purchase--btn:hover {
+            -webkit-box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
+            box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
+        }
+
+        /* Reset input number styles */
+        .input_field::-webkit-outer-spin-button,
+        .input_field::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .input_field[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        button {
+            padding: 17px 40px;
+            border-radius: 50px;
+            border: 0;
+            background-color: white;
+            -webkit-box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 15px;
+            -webkit-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        button:hover {
+            letter-spacing: 3px;
+            background-color: hsl(261deg 80% 48%);
+            color: hsl(0, 0%, 100%);
+            -webkit-box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+            box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+        }
+
+        button:active {
+            letter-spacing: 3px;
+            background-color: hsl(261deg 80% 48%);
+            color: hsl(0, 0%, 100%);
+            -webkit-box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+            box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+            -webkit-transform: translateY(10px);
+            -ms-transform: translateY(10px);
+            transform: translateY(10px);
+            -webkit-transition: 100ms;
+            transition: 100ms;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="centered_div">
+        <div class="modal">
+            <form class="form" style="font-family: 'Poppins', sans-serif; color: #000000;">
+                <div class="credit-card-info--form">
+                    <div class="input_container">
+                        <label style="color: black;" for="password_field" class="input_label">Tittle</label>
+                        <input id="project_tittle" class="input_field" type="text" name="input-name" title="Inpit title"
+                            placeholder="Great title, more views!" id="title">
+                    </div>
+                    <div class="input_container">
+                        <label style="color: black;" for="password_field" class="input_label">A little
+                            discription</label>
+                        <input id="project_desc" class="input_field" type="text" name="input-name" title="Inpit title"
+                            placeholder="Curious collaborators seeks more info!" id="description">
+                    </div>
+                    <div class="input_container">
+                        <label style="color: black;" for="password_field" class="input_label">How Much Are You
+                            Staking</label>
+                        <input id="project_staking" class="input_field" type="number" name="input-name"
+                            title="Inpit title" placeholder="Greater Risks, Greater Trust" id="stake">
+                    </div>
+
+                    <div class="input_container">
+                        <label style="color: black;" for="password_field" class="input_label">Role/Compensation</label>
+                        <div class="split">
+                            <input id="project_role" class="input_field" type="text"
+                                placeholder="Deceloper,Designer...." id="role_title">
+                            <input id="project_compensation" class="input_field" type="number" name="cvv"
+                                placeholder="__$/H" id="roles_compensation">
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <label style="color: black;" for="password_field" class="input_label">Required skills</label>
+                        <div class="split">
+                            <input id="project_skills" class="input_field" type="text" name="input-name"
+                                placeholder="solidity,Figma,Accounts..." id="role_requirements">
+                        </div>
+                    </div>
+                </div>
+                <button id="create-project-btn">Request Talent pool 🚀</button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        fetch('FreeLancer.json')
+            .then(response => response.json())
+            .then(ABI => {
+                var web3 = new Web3(window.ethereum);
+                var contract = new web3.eth.Contract(ABI, "0xdc76b91e9d6AC93209993673bF9ec51539690C26");
+    
+                const createProjectBtn = document.getElementById('create-project-btn');
+                createProjectBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const project_tittle = document.getElementById('project_tittle').value;
+                    const project_desc = document.getElementById('project_desc').value;
+                    const project_staking = document.getElementById('project_staking').value;
+                    const project_role = document.getElementById('project_role').value;
+                    const project_compensation = document.getElementById('project_compensation').value;
+                    const project_skills = document.getElementById('project_skills').value;
+                    const roles = [{ title: project_role, compensation: project_compensation, requirements: project_skills.split(',') }];
+
+    
+                    try {
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
+                        const accounts = await web3.eth.getAccounts();
+                        const account = accounts[0];
+                        const gasPrice = await web3.eth.getGasPrice();
+                        const gasEstimate = await contract.methods.createProject(project_tittle, project_desc, project_staking, roles).estimateGas({ from: account });
+                        const txParams = {
+                            from: account,
+                            gas: gasEstimate,
+                            gasPrice: gasPrice
+                        };
+                        contract.methods.createProject(project_tittle, project_desc, project_staking, roles).send(txParams)
+                            .then((result) => {
+                                alert("Project Created successfully!!");
+                            })
+                            .catch((error) => {
+                                alert("Cannot create the project");
+                            });
+                    } catch (error) {
+                        console.error('Error retrieving account:', error);
+                    }
+                });
+            })
+            .catch(error => console.error('Error retrieving ABI:', error));
+    </script>
+    
+    
+</body>
+
+</html>

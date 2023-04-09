@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COCREATE</title>
+  <link rel="stylesheet" href="workspace.css">
+  <link rel="stylesheet" href="global.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <img style="width: 500px; position: absolute; top: 27vh; left: 35vw;" src="images/coworker.png">
+  <h1 style="color: black; font-size: 70px; font-weight: 700; text-align: center;">COCREATE</h1>
+  <div class="container-local">
+    <div class="part part-50">
+      <h1 style="color: whitesmoke;font-size: 40px;font-family: Arial, Helvetica, sans-serif;">COCREATE </h1>
+
+      <div class="stats metrics bg-primary text-primary-content">
+
+        <div class="stat">
+          <div class="stat-title" style="color: aliceblue;">Staked Amount</div>
+          <div class="stat-value">$89,400</div>
+          <div class="stat-actions">
+            <button class="btn btn-sm btn-success">Add funds</button>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title" style="color: aliceblue;">Diluted Amount</div>
+          <div class="stat-value">$69</div>
+          <div class="stat-actions">
+          </div>
+        </div>
+
+      </div>
+
+      <script>
+        huddleClient.initialize("YOUR_PROJECT_ID");
+
+        document.getElementById('joinLobby').onclick = () => {
+          huddleClient.joinLobby('YOUR_ROOM_ID');
+        };
+
+        document.getElementById('joinRoom').onclick = () => {
+          huddleClient.joinRoom();
+        };
+      </script>
+      <br>
+      <div style="margin-top: 30px;" class="stats stats-vertical lg:stats-horizontal shadow">
+
+        <div class="stat">
+          <div class="stat-title">Downloads</div>
+          <div class="stat-value">34K</div>
+          <div class="stat-desc">Apr 1st - Apr 8th</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title">New Users</div>
+          <div class="stat-value">4,200</div>
+          <div class="stat-desc">↗︎ 400 (22%)</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-title">New Registers</div>
+          <div class="stat-value">1,200</div>
+          <div class="stat-desc">↘︎ 90 (14%)</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="color: azure;font-weight: 400;" class="part part-30">
+      UPDATES:
+      <div class="alert alert-success shadow-lg">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Userlogin & maintainence completed!</span>
+        </div>
+      </div>
+
+
+      <div class="alert alert-info shadow-lg">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="stroke-current flex-shrink-0 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Marketing report available.</span>
+        </div>
+      </div>
+      <div class="alert alert-error shadow-lg">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Critical Database Error.</span>
+        </div>
+      </div>
+      <div  id="alert-div" class="alert shadow-lg">
+        <div style="color: black;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="stroke-info flex-shrink-0 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span style="color: aliceblue;">Gig Acceptance Request From OX843...</span>
+        </div>
+        <div class="flex-none">
+          <button style="background-color: rgb(199, 56, 56);" class="btn btn-sm btn-ghost" id="denBtn">Deny</button>
+          <button class="btn btn-sm btn-primary" onclick = "window.location.href='https://app.huddle01.com/'">Interview</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+  const denyBtn = document.getElementById('denBtn');
+  const alertDiv = document.querySelector('.alert#alert-div');
+  denyBtn.addEventListener('click', () => {
+  alertDiv.style.transform = 'translateX(100%)';
+  setTimeout(() => {
+    alertDiv.style.display = 'none';
+  }, 500);
+  });
+
+
+  </script>
+</body>
+
+</html>

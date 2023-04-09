@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .continue-application {
+      --color: #fff;
+      --background: #404660;
+      --background-hover: #3A4059;
+      --background-left: #2B3044;
+      --folder: #F3E9CB;
+      --folder-inner: #BEB393;
+      --paper: #FFFFFF;
+      --paper-lines: #BBC1E1;
+      --paper-behind: #E1E6F9;
+      --pencil-cap: #fff;
+      --pencil-top: #275EFE;
+      --pencil-middle: #fff;
+      --pencil-bottom: #5C86FF;
+      --shadow: rgba(13, 15, 25, .2);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 19px;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      padding: 17px 29px 17px 69px;
+      -webkit-transition: background 0.3s;
+      transition: background 0.3s;
+      color: var(--color);
+      background: var(--bg, var(--background));
+    }
+
+    .continue-application>div {
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 53px;
+      position: absolute;
+      overflow: hidden;
+      border-radius: 5px 0 0 5px;
+      background: var(--background-left);
+    }
+
+    .continue-application>div .folder {
+      width: 23px;
+      height: 27px;
+      position: absolute;
+      left: 15px;
+      top: 13px;
+    }
+
+    .continue-application>div .folder .top {
+      left: 0;
+      top: 0;
+      z-index: 2;
+      position: absolute;
+      -webkit-transform: translateX(var(--fx, 0));
+      -ms-transform: translateX(var(--fx, 0));
+      transform: translateX(var(--fx, 0));
+      -webkit-transition: -webkit-transform 0.4s ease var(--fd, 0.3s);
+      transition: -webkit-transform 0.4s ease var(--fd, 0.3s);
+      transition: transform 0.4s ease var(--fd, 0.3s);
+      transition: transform 0.4s ease var(--fd, 0.3s), -webkit-transform 0.4s ease var(--fd, 0.3s);
+    }
+
+    .continue-application>div .folder .top svg {
+      width: 24px;
+      height: 27px;
+      display: block;
+      fill: var(--folder);
+      -webkit-transform-origin: 0 50%;
+      -ms-transform-origin: 0 50%;
+      transform-origin: 0 50%;
+      -webkit-transition: -webkit-transform 0.3s ease var(--fds, 0.45s);
+      transition: -webkit-transform 0.3s ease var(--fds, 0.45s);
+      transition: transform 0.3s ease var(--fds, 0.45s);
+      transition: transform 0.3s ease var(--fds, 0.45s), -webkit-transform 0.3s ease var(--fds, 0.45s);
+      -webkit-transform: perspective(120px) rotateY(var(--fr, 0deg));
+      transform: perspective(120px) rotateY(var(--fr, 0deg));
+    }
+
+    .continue-application>div .folder:before,
+    .continue-application>div .folder:after,
+    .continue-application>div .folder .paper {
+      content: "";
+      position: absolute;
+      left: var(--l, 0);
+      top: var(--t, 0);
+      width: var(--w, 100%);
+      height: var(--h, 100%);
+      border-radius: 1px;
+      background: var(--b, var(--folder-inner));
+    }
+
+    .continue-application>div .folder:before {
+      -webkit-box-shadow: 0 1.5px 3px var(--shadow), 0 2.5px 5px var(--shadow), 0 3.5px 7px var(--shadow);
+      box-shadow: 0 1.5px 3px var(--shadow), 0 2.5px 5px var(--shadow), 0 3.5px 7px var(--shadow);
+      -webkit-transform: translateX(var(--fx, 0));
+      -ms-transform: translateX(var(--fx, 0));
+      transform: translateX(var(--fx, 0));
+      -webkit-transition: -webkit-transform 0.4s ease var(--fd, 0.3s);
+      transition: -webkit-transform 0.4s ease var(--fd, 0.3s);
+      transition: transform 0.4s ease var(--fd, 0.3s);
+      transition: transform 0.4s ease var(--fd, 0.3s), -webkit-transform 0.4s ease var(--fd, 0.3s);
+    }
+
+    .continue-application>div .folder:after,
+    .continue-application>div .folder .paper {
+      --l: 1px;
+      --t: 1px;
+      --w: 21px;
+      --h: 25px;
+      --b: var(--paper-behind);
+    }
+
+    .continue-application>div .folder:after {
+      -webkit-transform: translate(var(--pbx, 0), var(--pby, 0));
+      -ms-transform: translate(var(--pbx, 0), var(--pby, 0));
+      transform: translate(var(--pbx, 0), var(--pby, 0));
+      -webkit-transition: -webkit-transform 0.4s ease var(--pbd, 0s);
+      transition: -webkit-transform 0.4s ease var(--pbd, 0s);
+      transition: transform 0.4s ease var(--pbd, 0s);
+      transition: transform 0.4s ease var(--pbd, 0s), -webkit-transform 0.4s ease var(--pbd, 0s);
+    }
+
+    .continue-application>div .folder .paper {
+      z-index: 1;
+      --b: var(--paper);
+    }
+
+    .continue-application>div .folder .paper:before,
+    .continue-application>div .folder .paper:after {
+      content: "";
+      width: var(--wp, 14px);
+      height: 2px;
+      border-radius: 1px;
+      -webkit-transform: scaleY(0.5);
+      -ms-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+      left: 3px;
+      top: var(--tp, 3px);
+      position: absolute;
+      background: var(--paper-lines);
+      -webkit-box-shadow: 0 12px 0 0 var(--paper-lines), 0 24px 0 0 var(--paper-lines);
+      box-shadow: 0 12px 0 0 var(--paper-lines), 0 24px 0 0 var(--paper-lines);
+    }
+
+    .continue-application>div .folder .paper:after {
+      --tp: 6px;
+      --wp: 10px;
+    }
+
+    .continue-application>div .pencil {
+      height: 2px;
+      width: 3px;
+      border-radius: 1px 1px 0 0;
+      top: 8px;
+      left: 105%;
+      position: absolute;
+      z-index: 3;
+      -webkit-transform-origin: 50% 19px;
+      -ms-transform-origin: 50% 19px;
+      transform-origin: 50% 19px;
+      background: var(--pencil-cap);
+      -webkit-transform: translateX(var(--pex, 0)) rotate(35deg);
+      -ms-transform: translateX(var(--pex, 0)) rotate(35deg);
+      transform: translateX(var(--pex, 0)) rotate(35deg);
+      -webkit-transition: -webkit-transform 0.4s ease var(--pbd, 0s);
+      transition: -webkit-transform 0.4s ease var(--pbd, 0s);
+      transition: transform 0.4s ease var(--pbd, 0s);
+      transition: transform 0.4s ease var(--pbd, 0s), -webkit-transform 0.4s ease var(--pbd, 0s);
+    }
+
+    .continue-application>div .pencil:before,
+    .continue-application>div .pencil:after {
+      content: "";
+      position: absolute;
+      display: block;
+      background: var(--b, linear-gradient(var(--pencil-top) 55%, var(--pencil-middle) 55.1%, var(--pencil-middle) 60%, var(--pencil-bottom) 60.1%));
+      width: var(--w, 5px);
+      height: var(--h, 20px);
+      border-radius: var(--br, 2px 2px 0 0);
+      top: var(--t, 2px);
+      left: var(--l, -1px);
+    }
+
+    .continue-application>div .pencil:before {
+      -webkit-clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+      clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+    }
+
+    .continue-application>div .pencil:after {
+      --b: none;
+      --w: 3px;
+      --h: 6px;
+      --br: 0 2px 1px 0;
+      --t: 3px;
+      --l: 3px;
+      border-top: 1px solid var(--pencil-top);
+      border-right: 1px solid var(--pencil-top);
+    }
+
+    .continue-application:before,
+    .continue-application:after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--color);
+      -webkit-transform-origin: 9px 1px;
+      -ms-transform-origin: 9px 1px;
+      transform-origin: 9px 1px;
+      -webkit-transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+      -ms-transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+      transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+      top: 26px;
+      right: 16px;
+      -webkit-transition: -webkit-transform 0.3s;
+      transition: -webkit-transform 0.3s;
+      transition: transform 0.3s;
+      transition: transform 0.3s, -webkit-transform 0.3s;
+    }
+
+    .continue-application:after {
+      --r: 45deg;
+    }
+
+    .continue-application:hover {
+      --cx: 2px;
+      --bg: var(--background-hover);
+      --fx: -40px;
+      --fr: -60deg;
+      --fd: .15s;
+      --fds: 0s;
+      --pbx: 3px;
+      --pby: -3px;
+      --pbd: .15s;
+      --pex: -24px;
+    }
+
+
+
+
+
+    button {
+      font-size: 16px;
+      position: relative;
+      margin: auto;
+      padding: 1em 2.5em 1em 2.5em;
+      border: none;
+      background: #fff;
+      -webkit-transition: all 0.1s linear;
+      transition: all 0.1s linear;
+      -webkit-box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.1);
+    }
+
+    button:active {
+      -webkit-transform: scale(0.95);
+      -ms-transform: scale(0.95);
+      transform: scale(0.95);
+    }
+
+    button span {
+      color: #464646;
+    }
+
+    button .border {
+      position: absolute;
+      border: 0.15em solid #fff;
+      -webkit-transition: all 0.3s 0.08s linear;
+      transition: all 0.3s 0.08s linear;
+      top: 50%;
+      left: 50%;
+      width: 9em;
+      height: 3em;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    button:hover .border {
+      display: block;
+      width: 9.9em;
+      height: 3.7em;
+    }
+
+    .full-rounded {
+      border-radius: 2em;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-48 mx-auto justify-center">
+      <div class="lg:w-4/5 mx-auto flex justify-center">
+        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-4" id="title"></h1>
+
+          <p class="leading-relaxed mb-4" id="description"> </p>
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500">Role</span>
+            <span class="ml-auto text-gray-900" id="role"> Designer</span>
+          </div>
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500">Compensation</span>
+            <span class="ml-auto text-gray-900" id="compansation">30</span>
+          </div>
+          <div class="flex border-t border-b mb-6 border-gray-200 py-2">
+            <span class="text-gray-500">Stake</span>
+            <span class="ml-auto text-gray-900" id="stake"></span>
+          </div>
+          <div class="flex">
+            <form>
+              <button type="button" onclick="uploadFile()" class="continue-application" id="uploadButton">
+                <input type="file" id="file-upload">
+                <div>
+                  <div class="pencil"></div>
+                  <div class="folder">
+                    <div class="top">
+                      <svg viewBox="0 0 24 27">
+                        <path
+                          d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z">
+                        </path>
+                      </svg>
+                    </div>
+                    <div class="paper"></div>
+                  </div>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+    const productId = queryParams.get('id');
+
+    fetch('FreeLancer.json')
+      .then(response => response.json())
+      .then(ABI => {
+        var web3 = new Web3("HTTP://127.0.0.1:8545");
+        var contract = new web3.eth.Contract(ABI, "0x518b7E52403cD23D24549bb6D6f3A441175091ee");
+
+        contract.methods.getProjectById(productId).call((error, project3) => {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          console.log(project3);
+
+          const title1 = document.getElementById("title");
+          const description1 = document.getElementById("description");
+          const stake1 = document.getElementById("stake");
+
+          title1.append(project3[0]);
+          description1.append(project3[1]);
+          stake1.append(project3[2]);
+        });
+      })
+      .catch(error => console.error(error));
+
+    function uploadFile() {
+      const file = document.getElementById('file-upload').files[0];
+      const buttonDiv = document.getElementById('uploadButton');
+      const formData = new FormData();
+      if (file != null) {
+        formData.append('image', file);
+        fetch('http://localhost:8080/uploadFile', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => { console.log(data); alert("Image uploaded Successfully!!!" + data.filename); });
+      }
+    }
+  </script>
+</body>
+
+</html>

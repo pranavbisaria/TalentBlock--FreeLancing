@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="marketplace.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Marketplace</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<body style="background-color: #f5f5f5 ; font-family: 'Barlow', sans-serif;
+  font-family: 'Poppins', sans-serif;">
+  <header style="background-color: #f5f5f5" class="text-gray-600 body-font flex-row justify-content-between">
+    <div class="container mx-auto  p-5 md:flex justify-between">
+
+      <a href="dashboard.html">
+        <button
+          class="flex items-center  h-12 w-32 bg-gray-300 hover:bg-white hover:shadow-md hover:-translate-y-2 transition-all duration-200 ease-in rounded-md cursor-pointer">
+          <svg height="16" width="16" class="mr-2 ml-2 text-gray-600 transition-all duration-400 ease-in">
+            <path
+              d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z">
+            </path>
+          </svg>
+          <span class="font-medium text-gray-600 uppercase tracking-widest">
+            <n>
+              <n></n>
+              <n></n>Back
+          </span>
+        </button>
+      </a>
+
+      <button style="float: right; text-align: right"
+        class="bg-white shadow-md align-items-right rounded-full uppercase tracking-widest text-sm px-10 py-4 transition-all duration-500 ease-in hover:bg-indigo-600 hover:text-white active:bg-indigo-600 active:shadow-none active:translate-y-1">
+        0xA87...c99b
+      </button>
+
+    </div>
+  </header>
+  <div class="text-center text-7xl text-black"> Current Projects</div>
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4" id="mainContainer">
+      </div>
+    </div>
+  </section>
+  <script>
+    var mainContainer = document.getElementById("mainContainer");
+
+    fetch('FreeLancer.json')
+      .then(response => response.json())
+      .then(ABI => {
+        var web3 = new Web3("HTTP://127.0.0.1:8545");
+        var contract = new web3.eth.Contract(ABI, "0x518b7E52403cD23D24549bb6D6f3A441175091ee");
+
+        // const title = "The Free Lancer";
+        // const description = "This is a freelance website that helps to host the project and finds the perfect match for your project contributors";
+        // const deadline = 78;
+        // const skills = [
+        //     ["HTML", 4, ["CSS"]],
+        //     ["Javascript", 5, ["JavaScript"]]
+        // ];
+
+        // contract.methods.createProject(title, description, deadline, skills);
+
+        // const productDiv = document.createElement("div");
+        // productDiv.setAttribute("class", "xl:w-1/4 md:w-1/2 p-4");
+        // productDiv.setAttribute("id", "productContainer");
+
+        // const InnerContainer = document.createElement("div");
+        // InnerContainer.setAttribute("class", "bg-gray-100 p-7 rounded-lg");
+        // InnerContainer.setAttribute("style", "background-color: #ffffff;");
+        // InnerContainer.setAttribute("id", "InnerContainer");
+        // productDiv.appendChild(InnerContainer);
+
+        // const image = document.createElement("img");
+        // image.setAttribute("class", "h-auto transition-all duration-300 rounded-lg ");
+        // image.src = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png";
+        // image.alt = "image description";
+        // image.setAttribute("id", "displayImag");
+        // InnerContainer.appendChild(image);
+
+        // const title = document.createElement("h2");
+        // title.setAttribute("class", "text-lg text-gray-900 font-medium title-font mb-4");
+        // title.textContent = "This is a Test";
+        // title.setAttribute("id", "title");
+        // InnerContainer.appendChild(title);
+
+        // const description = document.createElement("p");
+        // description.setAttribute("class", "leading-relaxed text-base");
+        // description.textContent = "This is a free lancer website that helps to host the project and finds the perfect match for your project contributors";
+        // description.setAttribute("id", "description");
+        // InnerContainer.appendChild(description);
+
+        // const stake = document.createElement("p");
+        // stake.setAttribute("class", "leading-relaxed text-base");
+        // stake.textContent = "78";
+        // stake.setAttribute("id", "textContent");
+        // InnerContainer.appendChild(stake);
+
+        // const buttonDiv = document.createElement("div");
+        // buttonDiv.setAttribute("class", "mt-10 sm:flex sm:items-center sm:space-x-8");
+        // buttonDiv.setAttribute("id", "buttonDiv");
+        // InnerContainer.appendChild(buttonDiv);
+
+        // const knowMoreButton = document.createElement("button");
+        // knowMoreButton.setAttribute("class", "bg-gray-200 border-none px-4 py-2 text-base w-40 rounded-lg text-lightcoral shadow-md cursor-pointer hover:bg-lightcoral hover:text-white hover:text-shadow-sm disabled:bg-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed");
+        // knowMoreButton.setAttribute("id", "knowMoreButton");
+        // knowMoreButton.textContent = "Explore";
+        // knowMoreButton.onclick = function() {window.location.href = "/workspace.html"};
+        // knowMoreButton.setAttribute("style", "background-color: #fd8709c3;");
+        // buttonDiv.appendChild(knowMoreButton);
+        // mainContainer.append(productDiv);
+
+        contract.methods.totalProjectsListed().call((err, totalProjects) => {
+          if (err) console.error(err);
+          for (let i = 0; i < totalProjects; i++) {
+            contract.methods.getProjectById(i).call((error, project3) => {
+              if (error) {
+                console.error(error);
+                return;
+              }
+              console.log(project3);
+
+              const productDiv = document.createElement("div");
+              productDiv.setAttribute("class", "xl:w-1/4 md:w-1/2 p-4");
+              productDiv.setAttribute("id", "productContainer");
+
+              const InnerContainer = document.createElement("div");
+              InnerContainer.setAttribute("class", "bg-gray-100 p-7 rounded-lg");
+              InnerContainer.setAttribute("style", "background-color: #ffffff;");
+              InnerContainer.setAttribute("id", "InnerContainer");
+              productDiv.appendChild(InnerContainer);
+
+              const image = document.createElement("img");
+              image.setAttribute("class", "h-auto transition-all duration-300 rounded-lg ");
+              image.src = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png";
+              image.alt = "image description";
+              image.setAttribute("id", "displayImag");
+              InnerContainer.appendChild(image);
+
+              const title = document.createElement("h2");
+              title.setAttribute("class", "text-lg text-gray-900 font-medium title-font mb-4");
+              title.textContent = project3[0];
+              title.setAttribute("id", "title");
+              InnerContainer.appendChild(title);
+
+              const description = document.createElement("p");
+              description.setAttribute("class", "leading-relaxed text-base");
+              description.textContent = project3[1];
+              description.setAttribute("id", "description");
+              InnerContainer.appendChild(description);
+
+              const stake = document.createElement("p");
+              stake.setAttribute("class", "leading-relaxed text-base");
+              stake.textContent = project3[2];
+              stake.setAttribute("id", "textContent");
+              InnerContainer.appendChild(stake);
+
+              const buttonDiv = document.createElement("div");
+              buttonDiv.setAttribute("class", "mt-10 sm:flex sm:items-center sm:space-x-8");
+              buttonDiv.setAttribute("id", "buttonDiv");
+              InnerContainer.appendChild(buttonDiv);
+
+              const knowMoreButton = document.createElement("button");
+              knowMoreButton.setAttribute("class", "bg-gray-200 border-none px-4 py-2 text-base w-40 rounded-lg text-lightcoral shadow-md cursor-pointer hover:bg-lightcoral hover:text-white hover:text-shadow-sm disabled:bg-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed");
+              knowMoreButton.setAttribute("id", "knowMoreButton");
+              knowMoreButton.textContent = "Explore";
+              knowMoreButton.onclick = function() {window.location.href = "/workspace.html"};
+              knowMoreButton.setAttribute("style", "background-color: #fd8709c3;");
+              buttonDiv.appendChild(knowMoreButton);
+              mainContainer.append(productDiv);
+            });
+          }
+        });
+      })
+      .catch(error => console.error('Error retrieving ABI:', error));
+  </script>
+</body>
+
+</html>
