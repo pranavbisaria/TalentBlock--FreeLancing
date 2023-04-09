@@ -249,11 +249,6 @@
       --pbd: .15s;
       --pex: -24px;
     }
-
-
-
-
-
     button {
       font-size: 16px;
       position: relative;
@@ -353,11 +348,11 @@
     const queryParams = new URLSearchParams(window.location.search);
     const productId = queryParams.get('id');
 
-    fetch('FreeLancer.json')
+    fetch('/FreeLancer.json')
       .then(response => response.json())
       .then(ABI => {
-        var web3 = new Web3("HTTP://127.0.0.1:8545");
-        var contract = new web3.eth.Contract(ABI, "0x518b7E52403cD23D24549bb6D6f3A441175091ee");
+        var web3 = new Web3("https://endpoints.omniatech.io/v1/matic/mumbai/public");
+        var contract = new web3.eth.Contract(ABI, "0xB42518F7796a219BFFCA17e6555E3d4a84e473DD");
 
         contract.methods.getProjectById(productId).call((error, project3) => {
           if (error) {
@@ -383,7 +378,7 @@
       const formData = new FormData();
       if (file != null) {
         formData.append('image', file);
-        fetch('http://localhost:8080/uploadFile', {
+        fetch('http://3.111.192.28:8080/uploadFile', {
           method: 'POST',
           body: formData
         })
