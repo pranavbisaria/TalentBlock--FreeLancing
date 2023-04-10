@@ -348,7 +348,7 @@
     const queryParams = new URLSearchParams(window.location.search);
     const productId = queryParams.get('id');
 
-    fetch('/FreeLancer.json')
+    fetch('freeLancer.json')
       .then(response => response.json())
       .then(ABI => {
         var web3 = new Web3("https://endpoints.omniatech.io/v1/matic/mumbai/public");

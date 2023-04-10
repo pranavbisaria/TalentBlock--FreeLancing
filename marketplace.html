@@ -48,7 +48,7 @@
     <script>
       var mainContainer = document.getElementById("mainContainer");
   
-      fetch('/FreeLancer.json')
+      fetch('freeLancer.json')
         .then(response => response.json())
         .then(ABI => {
           var web3 = new Web3("https://endpoints.omniatech.io/v1/matic/mumbai/public");
@@ -167,7 +167,7 @@
                 knowMoreButton.setAttribute("class", "bg-gray-200 border-none px-4 py-2 text-base w-40 rounded-lg text-lightcoral shadow-md cursor-pointer hover:bg-lightcoral hover:text-white hover:text-shadow-sm disabled:bg-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed");
                 knowMoreButton.setAttribute("id", "knowMoreButton");
                 knowMoreButton.textContent = "Explore";
-                knowMoreButton.onclick = function() {window.location.href = "/jobapplication.html?id="+i};
+                knowMoreButton.onclick = function() {window.location.href = "jobapplication.html?id="+i};
                 knowMoreButton.setAttribute("style", "background-color: #fd8709c3;");
                 buttonDiv.appendChild(knowMoreButton);
                 mainContainer.append(productDiv);
