@@ -80,8 +80,70 @@ font-weight: bolder;
     </style>
 </head>
 <body><div class="container">
-    <button> 0XA87...c99b
-    </button></div>
+    <button class="py-4 px-10 rounded-full bg-white shadow-sm uppercase tracking-wide text-sm transition-all duration-500 ease-in hover:bg-purple-500 hover:text-white hover:tracking-wider active:bg-purple-500 active:text-white active:shadow-none transform active:translate-y-1" id="connect-button">Connect Wallet
+        <script>
+        const button = document.getElementById("connect-button");
+
+        const updateButton = () => {
+          const account = localStorage.getItem("walletAddress");
+
+          if (!account) {
+            button.textContent = "Connect wallet";
+            return;
+          }
+
+          ethereum
+            .request({ method: "eth_accounts" })
+            .then((accounts) => {
+              if (accounts.length === 0) {
+                button.textContent = "Connect wallet";
+                localStorage.removeItem("walletAddress");
+              } else {
+                const shortenedAccount = `${accounts[0].slice(
+                  0,
+                  4
+                )}...${accounts[0].slice(-4)}`;
+                button.textContent = shortenedAccount;
+                localStorage.setItem("walletAddress", accounts[0]);
+              }
+            });
+        };
+
+        button.addEventListener("click", () => {
+          const account = localStorage.getItem("walletAddress");
+
+          if (!account) {
+            ethereum
+              .request({ method: "eth_requestAccounts" })
+              .then((accounts) => {
+                const shortenedAccount = `${accounts[0].slice(
+                  0,
+                  4
+                )}...${accounts[0].slice(-4)}`;
+                button.textContent = shortenedAccount;
+                localStorage.setItem("walletAddress", accounts[0]);
+              });
+          } else {
+            ethereum
+              .request({ method: "eth_accounts" })
+              .then((accounts) => {
+                if (accounts.length === 0) {
+                  button.textContent = "Connect wallet";
+                  localStorage.removeItem("walletAddress");
+                } else {
+                  const shortenedAccount = `${accounts[0].slice(
+                    0,
+                    4
+                  )}...${accounts[0].slice(-4)}`;
+                  button.textContent = shortenedAccount;
+                }
+              });
+          }
+        });
+
+        updateButton();
+        ethereum.on("accountsChanged", updateButton);
+      </script></div>
     
     <div class="heads">Dashboard</div>
     <div class="card">

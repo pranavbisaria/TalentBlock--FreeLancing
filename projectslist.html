@@ -32,12 +32,71 @@
           </span>
         </button>
       </a>
-
       <button style="float: right; text-align: right"
-        class="bg-white shadow-md align-items-right rounded-full uppercase tracking-widest text-sm px-10 py-4 transition-all duration-500 ease-in hover:bg-indigo-600 hover:text-white active:bg-indigo-600 active:shadow-none active:translate-y-1">
-        0xA87...c99b
-      </button>
+      class="bg-white shadow-md align-items-right rounded-full uppercase tracking-widest text-sm px-10 py-4 transition-all duration-500 ease-in hover:bg-indigo-600 hover:text-white active:bg-indigo-600 active:shadow-none active:translate-y-1" id="connect-button">Connect Wallet
+        <script>
+        const button = document.getElementById("connect-button");
 
+        const updateButton = () => {
+          const account = localStorage.getItem("walletAddress");
+
+          if (!account) {
+            button.textContent = "Connect wallet";
+            return;
+          }
+
+          ethereum
+            .request({ method: "eth_accounts" })
+            .then((accounts) => {
+              if (accounts.length === 0) {
+                button.textContent = "Connect wallet";
+                localStorage.removeItem("walletAddress");
+              } else {
+                const shortenedAccount = `${accounts[0].slice(
+                  0,
+                  4
+                )}...${accounts[0].slice(-4)}`;
+                button.textContent = shortenedAccount;
+                localStorage.setItem("walletAddress", accounts[0]);
+              }
+            });
+        };
+
+        button.addEventListener("click", () => {
+          const account = localStorage.getItem("walletAddress");
+
+          if (!account) {
+            ethereum
+              .request({ method: "eth_requestAccounts" })
+              .then((accounts) => {
+                const shortenedAccount = `${accounts[0].slice(
+                  0,
+                  4
+                )}...${accounts[0].slice(-4)}`;
+                button.textContent = shortenedAccount;
+                localStorage.setItem("walletAddress", accounts[0]);
+              });
+          } else {
+            ethereum
+              .request({ method: "eth_accounts" })
+              .then((accounts) => {
+                if (accounts.length === 0) {
+                  button.textContent = "Connect wallet";
+                  localStorage.removeItem("walletAddress");
+                } else {
+                  const shortenedAccount = `${accounts[0].slice(
+                    0,
+                    4
+                  )}...${accounts[0].slice(-4)}`;
+                  button.textContent = shortenedAccount;
+                }
+              });
+          }
+        });
+
+        updateButton();
+        ethereum.on("accountsChanged", updateButton);
+      </script>
     </div>
   </header>
   <div class="text-center text-7xl text-black"> Current Projects</div>
@@ -50,7 +109,7 @@
   <script>
     var mainContainer = document.getElementById("mainContainer");
 
-    fetch('freeLancer.json')
+    fetch('freelancer.json')
       .then(response => response.json())
       .then(ABI => {
         var web3 = new Web3("https://endpoints.omniatech.io/v1/matic/mumbai/public");
